@@ -1,13 +1,10 @@
-
 NAME = stdout-fs
-
-IMAGE_VERSION = $(NAME):$(BUILD)
-IMAGE_LATEST = $(NAME):latest
 
 all: build run
 
 build:
-	docker build -t $(IMAGE_VERSION) .
+	docker build -t $(NAME):latest .
 
 run:
-	docker run -it -p 3838:3838 docker-registry-v2.uswitchinternal.com/offline-energy-compliance-dashboard:SNAPSHOT
+	docker run --privileged -v $(shell pwd):/opt/stdout-fs -it $(NAME):latest
+	# docker run -it $(NAME):latest
