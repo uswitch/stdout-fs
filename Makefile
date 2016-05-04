@@ -2,6 +2,10 @@ NAME = stdout-fs
 
 all: build run
 
+release:
+	python setup.py build build_py sdist upload
+
+
 build:
 	docker build -t $(NAME):latest .
 
