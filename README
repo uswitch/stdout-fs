@@ -1,0 +1,21 @@
+# stdout-fs
+
+FUSE file system that forwards all write to all files to stdout.
+
+This can be usefull if a docker environment in a scenario where the service
+insits on writting logs to files, but one wants logs to be forwared to std
+for logging by the docker deamon.
+
+## install 
+This requires the fuse extention to be installed.
+`apt-get install fuse libfuse-dev`
+
+`pip install fusepy stdout-fs`
+
+## usage
+
+If used in a docker environment the container using fuse need to run with 
+`--privileged`.
+
+Example usage:
+`mkdir -p /mnt/stdout-fs && python /usr/local/lib/python2.7/dist-packages/stdout-fs.py /mnt/stdout-fs`
