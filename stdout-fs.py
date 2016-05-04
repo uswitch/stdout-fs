@@ -127,12 +127,16 @@ class Stdout(LoggingMixIn, Operations):
         stdout.flush()
         return len(data)
 
+def get_log_level():
+    log_level = logging.WARN
+    if ('STDOUT_FS_LOG_LEVEL' in os.environ['STDOUT_FS_LOG_LEVEL']) and (not os.environ['STDOUT_FS_LOG_LEVEL'] is None):
+        os.environ['STDOUT_FS_LOG_LEVEL']
 
 if __name__ == '__main__':
     if len(argv) != 2:
         print('usage: %s <mountpoint>' % argv[0])
         exit(1)
 
-    log_level = os.environ['STDOUT_FS_LOG_LEVEL'] or logging.WARN
+    log_level = get_log_level
     logging.basicConfig(level=logging.ERROR)
     fuse = FUSE(Stdout(), argv[1], foreground=True)
